@@ -13,7 +13,7 @@
             color: #333;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Aligns to top */
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
             padding: 40px 20px;
@@ -193,27 +193,27 @@
     </div>
 
     <script>
-        // Data
+        // Data med oppdaterte konsekvenser
         const matvarer = [
-            { navn: "Vann", fareniva: 1, konsekvens: "Lite entusiasme" },
-            { navn: "Thai-krydder", fareniva: 1, konsekvens: "En takk som husker hvor hun har bodd" },
-            { navn: "Pepsi max", fareniva: 2, konsekvens: "En basic takk" },
-            { navn: "Coca cola", fareniva: 2, konsekvens: "En takk" },
-            { navn: "Brød", fareniva: 2, konsekvens: "Et spørsmål om hvorfor jeg tar med brød" },
-            { navn: "Urge", fareniva: 3, konsekvens: "Et hyggelig takk" },
-            { navn: "Sjokolade", fareniva: 3, konsekvens: "Et annerkjennende takk" },
-            { navn: "Frus", fareniva: 4, konsekvens: "En takk på vegne av fellesskapet" },
-            { navn: "Agurk", fareniva: 5, konsekvens: '"Spiser du det til taco"' },
-            { navn: "Skumnisse", fareniva: 5, konsekvens: '"Det er ikke jul nå"' },
-            { navn: "Mango", fareniva: 7, konsekvens: "Et spørsmål om hvorfor hva mango er godt for" },
-            { navn: "Bamsemoms", fareniva: 7, konsekvens: "Et resonement av at noen liker det også" },
-            { navn: "Eple", fareniva: 8, konsekvens: "Et spørsmål om det er til middag eller etterpå, hun spiser det uansett ikke" },
-            { navn: "Makrell", fareniva: 9, konsekvens: "En returslipp fordi hun ikke vil ta den imot" },
-            { navn: "Brunost", fareniva: 9, konsekvens: '"Den trenger jeg ikke"' },
-            { navn: "Blekksprut", fareniva: 9, konsekvens: "Et spørsmål om å være morsom" },
-            { navn: "Joikakaker", fareniva: 9, konsekvens: "Et forvirrende takk fordi hun ikke vet hva det er" },
-            { navn: "Hermetisk tunfisk", fareniva: 9, konsekvens: "Et usagn om at denne ikke blir spist ved mindre det blir krig" },
-            { navn: "Banan", fareniva: 10, konsekvens: "Et slag mot articulatio humeri (skulderleddet)" }
+            { navn: "Vann", fareniva: 1, konsekvens: "Takk" },
+            { navn: "Thai-krydder", fareniva: 1, konsekvens: "Eh, takk? Eg liker det hvertfall!" },
+            { navn: "6-pack Pepsi max", fareniva: 1, konsekvens: "Ååå, tusen takk!!" },
+            { navn: "Coca cola", fareniva: 2, konsekvens: "Sku ikkje du ta med pepsi max?" },
+            { navn: "Brød", fareniva: 2, konsekvens: "E det i tilfelle du ikkje blir mett, eller...?" },
+            { navn: "Urge", fareniva: 3, konsekvens: "Hmm, det har eg ikkje turt å smaka før" },
+            { navn: "Sjokolade", fareniva: 3, konsekvens: "Eg har hørt folk seie det e godt! Eg tror eg liker det." },
+            { navn: "Frus", fareniva: 4, konsekvens: "Ska du prøve å være sunn ellår?" },
+            { navn: "Agurk", fareniva: 5, konsekvens: "Det e jo bare vann! Og eg har hørt at hvis du ete nok kjøtt, trenge du ikkje grønnsakår!" },
+            { navn: "Skumnisse", fareniva: 5, konsekvens: "Det e ikkje jul nå!" },
+            { navn: "Mango", fareniva: 7, konsekvens: "Ka e det for noge?" },
+            { navn: "Bamsemoms", fareniva: 7, konsekvens: "Eg tror nogen liker det" },
+            { navn: "Eple", fareniva: 8, konsekvens: "Æsj, hehe" },
+            { navn: "Makrell", fareniva: 9, konsekvens: "E det laks elle torsk?" },
+            { navn: "Brunost", fareniva: 9, konsekvens: "Eg har aldri skjønt greiå med det" },
+            { navn: "Blekksprut", fareniva: 9, konsekvens: "Øøø! Ka gjør den her!?" },
+            { navn: "Joikakaker", fareniva: 9, konsekvens: "Okei...?" },
+            { navn: "Hermetisk tunfisk", fareniva: 9, konsekvens: "Denna blir ikkje spist under fredstid!" },
+            { navn: "Banan", fareniva: 10, konsekvens: "ÆÆÆÆÆæææææ..." }
         ];
 
         // Hent elementer
