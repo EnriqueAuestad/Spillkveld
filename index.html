@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kajas Kresenhets-Kalkulator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+Thai:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', 'Noto Sans Thai', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Aligns to top */
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .undertittel {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .thai-text {
+            display: block;
+            font-size: 0.8em;
+            color: #95a5a6;
+            font-weight: 400;
+        }
+
+        #kategori-knapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .kategori-knapp {
+            padding: 12px 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            line-height: 1.3;
+        }
+        .kategori-knapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        #knapp-trygg { background-color: #2ecc71; }
+        #knapp-moderat { background-color: #f39c12; }
+        #knapp-utrygg { background-color: #e74c3c; }
+        #knapp-banan { background-color: #2c3e50; border: 2px solid #c0392b; }
+
+        #resultat-container {
+            text-align: left;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+        
+        .matvare-kort {
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .matvare-kort h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
+        .fare-indikator {
+            height: 25px;
+            width: 100%;
+            border-radius: 5px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            transition: background-color 0.5s ease;
+            margin: 5px 0;
+        }
+
+        .konsekvens-tekst {
+            font-style: italic;
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+        }
+        
+        #deeskaler-seksjon {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        #deeskaler-knapp {
+            background-color: #3498db;
+            color: white;
+        }
+
+        #deeskaler-forslag {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            text-align: left;
+        }
+        #deeskaler-forslag.hidden {
+            display: none;
+        }
+        #deeskaler-forslag ul {
+            list-style-type: '✅ ';
+            padding-left: 20px;
+            margin: 0;
+        }
+        #deeskaler-forslag li {
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Operasjon Gjestfrihet
+            <span class="thai-text">ปฏิบัติการไมตรีจิต</span>
+        </h1>
+        <p class="undertittel">En taktisk guide for Kaja.
+            <span class="thai-text">คู่มือเชิงกลยุทธ์สำหรับคายา</span>
+        </p>
+
+        <div id="kategori-knapper">
+            <button class="kategori-knapp" id="knapp-trygg" data-kategori="trygt">Trygt Valg (1-3)
+                <span class="thai-text">ตัวเลือกที่ปลอดภัย</span>
+            </button>
+            <button class="kategori-knapp" id="knapp-moderat" data-kategori="moderat">Moderat Risiko (4-7)
+                <span class="thai-text">ความเสี่ยงปานกลาง</span>
+            </button>
+            <button class="kategori-knapp" id="knapp-utrygg" data-kategori="utrygg">Høy Risiko (8-9)
+                 <span class="thai-text">ความเสี่ยงสูง</span>
+            </button>
+            <button class="kategori-knapp" id="knapp-banan" data-kategori="banan">IKKE VELKOMMEN IGJEN
+                <span class="thai-text">ไม่ต้อนรับอีกต่อไป</span>
+            </button>
+        </div>
+
+        <div id="resultat-container"></div>
+
+        <div id="deeskaler-seksjon">
+            <button class="kategori-knapp" id="deeskaler-knapp">De-eskaler farenivå
+                <span class="thai-text">ลดระดับอันตราย</span>
+            </button>
+            <div id="deeskaler-forslag" class="hidden">
+                <strong>Forslag til tiltak:</strong>
+                <ul>
+                    <li>Gi en klem. <span class="thai-text">กอด</span></li>
+                    <li>Initier et swing-move. <span class="thai-text">เริ่มเต้นสวิง</span></li>
+                    <li>Si hva matvaren heter på thai. <span class="thai-text">บอกชื่ออาหารเป็นภาษาไทย</span></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Data
+        const matvarer = [
+            { navn: "Vann", fareniva: 1, konsekvens: "Lite entusiasme" },
+            { navn: "Thai-krydder", fareniva: 1, konsekvens: "En takk som husker hvor hun har bodd" },
+            { navn: "Pepsi max", fareniva: 2, konsekvens: "En basic takk" },
+            { navn: "Coca cola", fareniva: 2, konsekvens: "En takk" },
+            { navn: "Brød", fareniva: 2, konsekvens: "Et spørsmål om hvorfor jeg tar med brød" },
+            { navn: "Urge", fareniva: 3, konsekvens: "Et hyggelig takk" },
+            { navn: "Sjokolade", fareniva: 3, konsekvens: "Et annerkjennende takk" },
+            { navn: "Frus", fareniva: 4, konsekvens: "En takk på vegne av fellesskapet" },
+            { navn: "Agurk", fareniva: 5, konsekvens: '"Spiser du det til taco"' },
+            { navn: "Skumnisse", fareniva: 5, konsekvens: '"Det er ikke jul nå"' },
+            { navn: "Mango", fareniva: 7, konsekvens: "Et spørsmål om hvorfor hva mango er godt for" },
+            { navn: "Bamsemoms", fareniva: 7, konsekvens: "Et resonement av at noen liker det også" },
+            { navn: "Eple", fareniva: 8, konsekvens: "Et spørsmål om det er til middag eller etterpå, hun spiser det uansett ikke" },
+            { navn: "Makrell", fareniva: 9, konsekvens: "En returslipp fordi hun ikke vil ta den imot" },
+            { navn: "Brunost", fareniva: 9, konsekvens: '"Den trenger jeg ikke"' },
+            { navn: "Blekksprut", fareniva: 9, konsekvens: "Et spørsmål om å være morsom" },
+            { navn: "Joikakaker", fareniva: 9, konsekvens: "Et forvirrende takk fordi hun ikke vet hva det er" },
+            { navn: "Hermetisk tunfisk", fareniva: 9, konsekvens: "Et usagn om at denne ikke blir spist ved mindre det blir krig" },
+            { navn: "Banan", fareniva: 10, konsekvens: "Et slag mot articulatio humeri (skulderleddet)" }
+        ];
+
+        // Hent elementer
+        const kategoriKnapper = document.querySelectorAll('.kategori-knapp[data-kategori]');
+        const resultatContainer = document.getElementById('resultat-container');
+        const deeskalerKnapp = document.getElementById('deeskaler-knapp');
+        const deeskalerForslag = document.getElementById('deeskaler-forslag');
+
+        // Funksjon for å lage et "kort" for hver matvare
+        function createMatvareCard(matvare) {
+            const card = document.createElement('div');
+            card.className = 'matvare-kort';
+
+            const fareniva = matvare.fareniva;
+            const hue = 120 - (fareniva * 12);
+            card.style.borderLeftColor = `hsl(${hue}, 80%, 50%)`;
+
+            card.innerHTML = `
+                <h3>${matvare.navn}</h3>
+                <strong>Farenivå:</strong>
+                <div class="fare-indikator" style="background-color: hsl(${hue}, 80%, 50%)">
+                    ${fareniva} av 10
+                </div>
+                <strong>Mulig konsekvens:</strong>
+                <p class="konsekvens-tekst">"${matvare.konsekvens}"</p>
+            `;
+            return card;
+        }
+
+        // Funksjon for å vise matvarer i en kategori
+        function visMatvarer(kategori) {
+            resultatContainer.innerHTML = ''; // Tømmer forrige resultat
+            let filtrerteMatvarer;
+
+            if (kategori === 'trygt') {
+                filtrerteMatvarer = matvarer.filter(m => m.fareniva >= 1 && m.fareniva <= 3);
+            } else if (kategori === 'moderat') {
+                filtrerteMatvarer = matvarer.filter(m => m.fareniva >= 4 && m.fareniva <= 7);
+            } else if (kategori === 'utrygg') {
+                filtrerteMatvarer = matvarer.filter(m => m.fareniva >= 8 && m.fareniva <= 9);
+            } else if (kategori === 'banan') {
+                filtrerteMatvarer = matvarer.filter(m => m.fareniva === 10);
+            }
+            
+            if (filtrerteMatvarer && filtrerteMatvarer.length > 0) {
+                filtrerteMatvarer.forEach(matvare => {
+                    const card = createMatvareCard(matvare);
+                    resultatContainer.appendChild(card);
+                });
+            }
+        }
+        
+        // Legg til lyttere på kategoriknappene
+        kategoriKnapper.forEach(knapp => {
+            knapp.addEventListener('click', () => {
+                visMatvarer(knapp.dataset.kategori);
+            });
+        });
+
+        // Legg til lytter på de-eskaleringsknappen
+        deeskalerKnapp.addEventListener('click', () => {
+            deeskalerForslag.classList.toggle('hidden');
+        });
+        
+    </script>
+
+</body>
+</html>
